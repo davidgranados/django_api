@@ -2,7 +2,6 @@ from django.contrib.auth import get_user_model
 from django.db import models
 
 from core.models import BaseModel, SoftDeleteModel
-from posts.model_enums import Weight
 
 User = get_user_model()
 
