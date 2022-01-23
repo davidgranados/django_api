@@ -6,6 +6,7 @@ from accounts import views
 app_name = "api/accounts/"
 
 urlpatterns = [
-    path("token/login/", views.LoginView.as_view(), name="token_obtain_pair"),
+    path("register/", views.RegisterView.as_view(), name="register"),
+    path("token/login/", views.LoginView.as_view(), name="token_login"),
     path("token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
 ]
