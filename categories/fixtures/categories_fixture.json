@@ -1,0 +1,65 @@
+[
+  {
+    "model": "categories.category",
+    "pk": 1,
+    "fields": {
+      "created_at": "2022-01-23T18:03:09.898Z",
+      "updated_at": "2022-01-23T18:03:09.898Z",
+      "name": "general"
+    }
+  },
+  {
+    "model": "categories.category",
+    "pk": 2,
+    "fields": {
+      "created_at": "2022-01-23T18:03:17.433Z",
+      "updated_at": "2022-01-23T18:03:17.433Z",
+      "name": "javascript"
+    }
+  },
+  {
+    "model": "categories.category",
+    "pk": 3,
+    "fields": {
+      "created_at": "2022-01-23T18:03:23.400Z",
+      "updated_at": "2022-01-23T18:03:23.400Z",
+      "name": "python"
+    }
+  },
+  {
+    "model": "categories.category",
+    "pk": 4,
+    "fields": {
+      "created_at": "2022-01-23T18:03:28.882Z",
+      "updated_at": "2022-01-23T18:03:28.882Z",
+      "name": "ruby"
+    }
+  },
+  {
+    "model": "categories.category",
+    "pk": 5,
+    "fields": {
+      "created_at": "2022-01-23T18:03:33.438Z",
+      "updated_at": "2022-01-23T18:03:33.438Z",
+      "name": "cpp"
+    }
+  },
+  {
+    "model": "categories.category",
+    "pk": 6,
+    "fields": {
+      "created_at": "2022-01-23T18:03:38.029Z",
+      "updated_at": "2022-01-23T18:03:38.029Z",
+      "name": "csharp"
+    }
+  },
+  {
+    "model": "categories.category",
+    "pk": 7,
+    "fields": {
+      "created_at": "2022-01-23T18:03:42.242Z",
+      "updated_at": "2022-01-23T18:03:42.242Z",
+      "name": "php"
+    }
+  }
+]

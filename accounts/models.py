@@ -9,8 +9,11 @@ class User(AbstractUser):
     """
     Custom user model that support using email instead of username.
     """
+
     username = None
-    email = models.EmailField(_("email address"), max_length=255, unique=True, blank=False, null=False)
+    email = models.EmailField(
+        _("email address"), max_length=255, unique=True, blank=False, null=False
+    )
 
     objects = CustomUserManager()
 

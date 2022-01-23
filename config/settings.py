@@ -40,7 +40,10 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "debug_toolbar",
     "rest_framework",
+    "core",
     "accounts",
+    "categories",
+    "posts",
 ]
 
 MIDDLEWARE = [
