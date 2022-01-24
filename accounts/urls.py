@@ -25,7 +25,7 @@ urlpatterns = [
         "users-with-posts/",
         generics.ListAPIView.as_view(
             queryset=User.objects.all().prefetch_related("posts"),
-            serializer_class=serializers.UserWithPostsAndCategoriesSerializer,
+            serializer_class=serializers.UserWithPostsSerializer,
         ),
         name="users_with_posts",
     ),
@@ -65,5 +65,16 @@ urlpatterns = [
             serializer_class=serializers.UserWithPostsAndCategoriesSerializer,
         ),
         name="user_with_posts_and_categories",
+    ),
+    path(
+        "top-10-users-by-post-count/",
+        generics.ListAPIView.as_view(
+            queryset=User.objects.annotate(posts_count=Count("posts")).order_by(
+                "-posts_count"
+            )[0:10],
+            serializer_class=serializers.UsersWithPostCountSerializer,
+            pagination_class=None,
+        ),
+        name="top-10-users-by-post-count",
     ),
 ]

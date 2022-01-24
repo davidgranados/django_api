@@ -1,10 +1,11 @@
 from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
 from rest_framework.exceptions import ValidationError
-from rest_framework.serializers import CharField, ModelSerializer
+from rest_framework.serializers import CharField, ModelSerializer, SerializerMethodField
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
-from posts.serializers import PostSerializer, PostWithCategoriesSerializer
+from posts.models import Post
+from categories.models import Category
 
 User = get_user_model()
 
@@ -54,16 +55,48 @@ class RegisterSerializer(ModelSerializer):
         return user
 
 
+class UserCategorySerializer(ModelSerializer):
+    class Meta:
+        model = Category
+        fields = "__all__"
+
+
+class UserPostSerializer(ModelSerializer):
+    class Meta:
+        model = Post
+        fields = ["id", "body", "created_at", "updated_at"]
+
+
+class UserPostWithCategoriesSerializer(ModelSerializer):
+    categories = UserCategorySerializer(many=True)
+
+    class Meta:
+        model = Post
+        fields = ["id", "body", "created_at", "updated_at", "categories"]
+
+
 class UserWithPostsSerializer(ModelSerializer):
-    posts = PostSerializer(many=True)
+    posts = UserPostSerializer(many=True)
+
     class Meta:
         model = User
         fields = ["id", "first_name", "last_name", "email", "posts"]
 
 
 class UserWithPostsAndCategoriesSerializer(ModelSerializer):
-    posts = PostWithCategoriesSerializer(many=True)
+    posts = UserPostWithCategoriesSerializer(many=True)
+
     class Meta:
         model = User
         fields = ["id", "first_name", "last_name", "email", "posts"]
 
+
+class UsersWithPostCountSerializer(ModelSerializer):
+    posts_count = SerializerMethodField()
+
+    def get_posts_count(self, obj):
+        return obj.posts_count
+
+    class Meta:
+        model = User
+        fields = ["id", "username", "first_name", "last_name", "email", "posts_count"]
