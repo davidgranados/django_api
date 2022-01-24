@@ -1,9 +1,13 @@
-from django.urls import path
 from django.contrib.auth import get_user_model
+from django.db.models import Count, Prefetch
+from django.urls import path
 from rest_framework import generics
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
-from accounts import views, serializers
+from accounts import serializers, views
+
+# from categories.models import Category
+from posts.models import Post
 
 User = get_user_model()
 
@@ -34,6 +38,30 @@ urlpatterns = [
         "users-with-posts-and-categories/",
         generics.ListAPIView.as_view(
             queryset=User.objects.all().prefetch_related("posts__categories"),
+            serializer_class=serializers.UserWithPostsAndCategoriesSerializer,
+        ),
+        name="user_with_posts_and_categories",
+    ),
+    path(
+        "users-with-posts-and-categories-filtered-by-category",
+        generics.ListAPIView.as_view(
+            queryset=User.objects.all().prefetch_related(
+                # Prefetch(
+                #     "posts__categories", queryset=Category.objects.filter(name="python")
+                # )
+                # Prefetch(
+                #     "posts",
+                #     queryset=Post.objects.prefetch_related("categories").filter(
+                #         categories__name__in=["python"]
+                #     )
+                # )
+                Prefetch(
+                    "posts",
+                    queryset=Post.objects.annotate(categories_count=Count("categories"))
+                    .prefetch_related("categories")
+                    .filter(categories__name__in=["python"], categories_count=1),
+                )
+            ),
             serializer_class=serializers.UserWithPostsAndCategoriesSerializer,
         ),
         name="user_with_posts_and_categories",
