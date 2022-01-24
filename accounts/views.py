@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from rest_framework import status
+# from rest_framework.generics import CreateAPIView, ListAPIView
 from rest_framework.generics import CreateAPIView
 from rest_framework.response import Response
 from rest_framework_simplejwt.views import TokenObtainPairView
@@ -32,3 +33,13 @@ class RegisterView(CreateAPIView):
             },
             status=status.HTTP_201_CREATED,
         )
+
+
+# class UserWithPostsView(ListAPIView):
+#     queryset = User.objects.all().prefetch_related("posts")
+#     serializer_class = serializers.UserWithPostsSerializer
+
+
+# class UserWithPostAndCategoriesView(ListAPIView):
+#     queryset = User.objects.all().prefetch_related("posts__categories")
+#     serializer_class = serializers.UserWithPostsAndCategoriesSerializer

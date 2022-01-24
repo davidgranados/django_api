@@ -4,6 +4,8 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.serializers import CharField, ModelSerializer
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
+from posts.serializers import PostSerializer, PostWithCategoriesSerializer
+
 User = get_user_model()
 
 
@@ -50,3 +52,18 @@ class RegisterSerializer(ModelSerializer):
             password=validated_data.get("password"),
         )
         return user
+
+
+class UserWithPostsSerializer(ModelSerializer):
+    posts = PostSerializer(many=True)
+    class Meta:
+        model = User
+        fields = ["id", "first_name", "last_name", "email", "posts"]
+
+
+class UserWithPostsAndCategoriesSerializer(ModelSerializer):
+    posts = PostWithCategoriesSerializer(many=True)
+    class Meta:
+        model = User
+        fields = ["id", "first_name", "last_name", "email", "posts"]
+
